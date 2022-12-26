@@ -115,7 +115,6 @@ const reset = () => {
   resetDate.value = new Date();
 };
 
-// Do Cross-multiplication with the given row and column
 const calculate = (rowIndex, cellIndex) => {
   // d = (b * c) / a
   const isLeft = cellIndex === 0;
