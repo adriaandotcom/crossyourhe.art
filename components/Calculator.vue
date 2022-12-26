@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p>Calculator</p>
+    <p>Calculate a cross-multiplication without picking up a pen.</p>
 
-    <div class="max-w-xl mx-auto grid grid-cols-4 gap-4 justify-center mt-4">
+    <div class="max-w-xl mx-auto grid grid-cols-4 gap-4 justify-center mt-8">
       <div class="flex items-center justify-center">
         <input
           v-if="showUnitOne"
