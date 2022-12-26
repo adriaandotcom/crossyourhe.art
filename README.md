@@ -1,42 +1,5 @@
-# Nuxt 3 Minimal Starter
+# Cross your he.art
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A simple calculator for a cross-multiplication without the need to pick up a pen.
 
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+<kbd><img width="625" alt="Screenshot" src="https://user-images.githubusercontent.com/1079135/209587989-66405ce0-31a8-447e-8341-128aa7ee38ea.png"></kbd>
