@@ -2,6 +2,11 @@
   <div class="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
     <Html>
       <Head>
+        <Title>Cross your heart</Title>
+        <Meta
+          name="description"
+          content="Calculate a cross-multiplication without picking up a pen."
+        />
         <Link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <Link rel="icon" type="image/png" href="/favicon.png" />
         <!-- 100% privacy friendly analytics -->
