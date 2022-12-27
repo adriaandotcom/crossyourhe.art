@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
+      "postcss-hover-media-feature": {},
     },
   },
   app: {
