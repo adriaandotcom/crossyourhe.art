@@ -14,7 +14,7 @@
           async
           defer
           src="https://scripts.simpleanalyticscdn.com/latest.js"
-        ></Script>
+        />
       </Head>
     </Html>
 

@@ -14,7 +14,7 @@ p {
 }
 
 input[type="text"] {
-  @apply block w-full rounded-md border-gray-300 shadow-sm  sm:text-3xl bg-white dark:bg-indigo-200 text-indigo-900 text-center;
+  @apply block w-full rounded-md border-gray-300 shadow-sm sm:text-3xl bg-white text-center dark:bg-violet-50;
 }
 
 button[type="submit"] {

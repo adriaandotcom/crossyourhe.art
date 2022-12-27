@@ -7,4 +7,17 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  app: {
+    head: {
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+      title: "Cross your heart",
+      meta: [
+        {
+          name: "description",
+          content: "Calculate a cross-multiplication without picking up a pen.",
+        },
+      ],
+    },
+  },
 });
