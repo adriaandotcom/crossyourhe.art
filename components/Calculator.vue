@@ -9,6 +9,12 @@
     </p>
 
     <ClientOnly>
+      <p class="mt-1 dark:text-indigo-400">
+        Type your numbers in this format:
+        <code class="dark:text-indigo-300">{{ formatExample }}</code
+        >.
+      </p>
+
       <div
         class="max-w-xl mx-auto grid grid-cols-4 gap-4 justify-center mt-8 mb-8"
       >
@@ -56,6 +62,13 @@
               <input
                 type="text"
                 v-model="matrix.value[rowIndex][cellIndex]"
+                @blur="
+                  matrix.value[rowIndex][cellIndex] = matrix.value[rowIndex][
+                    cellIndex
+                  ]
+                    ? parseTextToDisplay(matrix.value[rowIndex][cellIndex])
+                    : ''
+                "
                 :class="
                   calculate(rowIndex, cellIndex) &&
                   calculate(rowIndex, cellIndex) !=
@@ -90,7 +103,7 @@
             @click="reset()"
             class="group border-2 rounded-xl border-indigo-600 dark:border-indigo-400 hover:bg-indigo-600 dark:hover:bg-indigo-400"
           >
-            <TrashIcon
+            <ArrowUturnLeftIcon
               class="w-12 h-12 p-2 stroke-indigo-600 dark:stroke-indigo-400 group-hover:stroke-white"
             />
           </button>
@@ -122,14 +135,67 @@ import {
   MinusIcon,
   PencilIcon,
   Bars2Icon,
-  TrashIcon,
+  ArrowUturnLeftIcon,
 } from "@heroicons/vue/24/outline";
+
+const locale = Intl.NumberFormat().resolvedOptions().locale;
+
+class NumberParser {
+  constructor(locale) {
+    const format = new Intl.NumberFormat(locale);
+    const parts = format.formatToParts(12345.6);
+    const numerals = Array.from({ length: 10 }).map((_, i) => format.format(i));
+    const index = new Map(numerals.map((d, i) => [d, i]));
+    this._group = new RegExp(
+      `[${parts.find((d) => d.type === "group").value}]`,
+      "g"
+    );
+    this._decimal = new RegExp(
+      `[${parts.find((d) => d.type === "decimal").value}]`
+    );
+    this._numeral = new RegExp(`[${numerals.join("")}]`, "g");
+    this._index = (d) => index.get(d);
+  }
+  parse(string) {
+    return (string = string
+      .trim()
+      .replace(this._group, "")
+      .replace(this._decimal, ".")
+      .replace(this._numeral, this._index))
+      ? +string
+      : NaN;
+  }
+}
+
+const parser = new NumberParser(locale);
+
+const parseTextToNumber = (text) => {
+  const string = `${text}`;
+  return text ? parser.parse(string) : "";
+};
+
+// Use new Intl.NumberFormat to format numbers
+const parseTextToDisplay = (text) => {
+  const number = parseTextToNumber(text);
+  return new Intl.NumberFormat(locale, {
+    maximumFractionDigits: 5,
+  }).format(number);
+};
+
+const parseIntToDisplay = (number) => {
+  if (typeof number !== "number")
+    throw new Error("parseIntToDisplay: integer is not a number");
+
+  return new Intl.NumberFormat(locale, {
+    maximumFractionDigits: 5,
+  }).format(number);
+};
 
 const defaultUnitOne = "Width";
 const defaultUnitTwo = "Height";
 const defaultMatrix = [
-  [4, 3],
-  [1200, null],
+  [parseTextToDisplay(4), parseTextToDisplay(3)],
+  [parseTextToDisplay(1200.5), null],
 ];
 
 const unitOne = ref(defaultUnitOne);
@@ -142,17 +208,22 @@ const matrix = reactive({
   value: [...defaultMatrix],
 });
 
+const formatExample = computed(() => {
+  return new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 2,
+    useGrouping: false,
+  }).format(1000.5);
+});
+
 const addRow = () => {
-  matrix.value.push([0, null]);
+  matrix.value.push([parseTextToDisplay(0), null]);
 };
 const removeRow = () => {
   matrix.value.pop();
 };
 
 const reset = () => {
-  matrix.value = [...defaultMatrix];
-  unitOne.value = defaultUnitOne;
-  unitTwo.value = defaultUnitTwo;
+  matrix.value = [matrix.value[0], [null, null]];
   resetDate.value = new Date();
   clearLocalstorage();
 };
@@ -168,8 +239,6 @@ const saveToLocalstorage = () => {
 const clearLocalstorage = () => {
   if (process.client) {
     localStorage.removeItem("matrix");
-    localStorage.removeItem("unitOne");
-    localStorage.removeItem("unitTwo");
   }
 };
 
@@ -191,9 +260,9 @@ const calculate = (rowIndex, cellIndex) => {
   const isLeft = cellIndex === 0;
 
   const row = matrix.value[rowIndex];
-  const b = row[isLeft ? 1 : 0];
+  const bRaw = row[isLeft ? 1 : 0];
 
-  if (!b) return;
+  if (!bRaw) return;
 
   const firstRow = matrix.value
     .filter((_, index) => index !== rowIndex)
@@ -201,10 +270,14 @@ const calculate = (rowIndex, cellIndex) => {
 
   if (!firstRow) return;
 
-  const [a, c] = firstRow;
+  const [aRaw, cRaw] = firstRow;
+
+  const a = parseTextToNumber(aRaw);
+  const b = parseTextToNumber(bRaw);
+  const c = parseTextToNumber(cRaw);
 
   const d = isLeft ? (b * a) / c : (b * c) / a;
-  const value = parseFloat(d.toFixed(3).replace(/\.?0+$/, ""));
+  const value = parseIntToDisplay(d);
 
   // Only update cell when resetDate is newer than 500ms
   const isNull = matrix.value[rowIndex][cellIndex] === null;

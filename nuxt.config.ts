@@ -20,4 +20,14 @@ export default defineNuxtConfig({
       ],
     },
   },
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => ["Script"].includes(tag),
+    },
+  },
+  runtimeConfig: {
+    public: {
+      GITHUB_SHA: process.env.GITHUB_SHA,
+    },
+  },
 });
