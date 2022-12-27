@@ -9,7 +9,7 @@
     </p>
 
     <ClientOnly>
-      <p class="mt-1 dark:text-indigo-400">
+      <p class="mt-1 text-indigo-400">
         Type your numbers in this format:
         <code class="dark:text-indigo-300">{{ formatExample }}</code
         >.
