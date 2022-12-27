@@ -216,14 +216,14 @@ const formatExample = computed(() => {
 });
 
 const addRow = () => {
-  matrix.value.push([parseTextToDisplay(0), null]);
+  matrix.value.push([parseTextToDisplay(0), ""]);
 };
 const removeRow = () => {
   matrix.value.pop();
 };
 
 const reset = () => {
-  matrix.value = [matrix.value[0], [null, null]];
+  matrix.value = [matrix.value[0], ["", ""]];
   resetDate.value = new Date();
   clearLocalstorage();
 };
