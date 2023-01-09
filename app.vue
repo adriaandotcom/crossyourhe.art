@@ -33,6 +33,7 @@
         v-if="showProductHuntBadge"
         href="https://www.producthunt.com/posts/cross-your-he-art?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cross&#0045;your&#0045;he&#0045;art"
         target="_blank"
+        class="inline-block"
         ><img
           :src="
             'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=374189&theme=' +
