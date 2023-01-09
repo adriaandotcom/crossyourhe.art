@@ -29,6 +29,21 @@
     </h1>
 
     <main class="mt-6 text-center">
+      <a
+        v-if="showProductHuntBadge"
+        href="https://www.producthunt.com/posts/cross-your-he-art?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cross&#0045;your&#0045;he&#0045;art"
+        target="_blank"
+        ><img
+          :src="
+            'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=374189&theme=' +
+            theme
+          "
+          alt="Cross&#0032;your&#0032;he&#0046;art - Calculate&#0032;a&#0032;cross&#0045;multiplication&#0032;without&#0032;picking&#0032;up&#0032;a&#0032;pen | Product Hunt"
+          style="width: 250px; height: 54px; margin: 0 auto 1.5rem"
+          width="250"
+          height="54"
+      /></a>
+
       <NuxtPage />
     </main>
 
@@ -72,4 +87,24 @@ import {
 
 const config = useRuntimeConfig();
 const { GITHUB_SHA } = config.public;
+
+const showProductHuntBadge = computed(() => {
+  return new Date() < new Date("2023-01-10T08:00:00.000Z");
+});
+
+const theme = ref("neutral");
+
+if (process.client) {
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    theme.value = "dark";
+  }
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (event) => {
+      theme.value = event.matches ? "dark" : "neutral";
+    });
+}
 </script>
