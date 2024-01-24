@@ -33,7 +33,7 @@
     </main>
 
     <p class="mt-auto pt-4 text-center text-sm text-indigo-400 space-x-5">
-      <a href="https://twitter.com/AdriaanvRossum"
+      <a href="https://twitter.com/adriaandotcom"
         ><ChatBubbleBottomCenterTextIcon
           class="inline mr-1 w-4 h-4"
         />Twitter</a
