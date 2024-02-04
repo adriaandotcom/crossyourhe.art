@@ -43,12 +43,12 @@
       >
       <a
         v-if="GITHUB_SHA"
-        :href="`https://github.com/adriaanvanrossum/crossyourhe.art/commit/${GITHUB_SHA}`"
+        :href="`https://github.com/adriaandotcom/crossyourhe.art/commit/${GITHUB_SHA}`"
         ><CodeBracketIcon class="inline mr-1 w-4 h-4" /><code>{{
           GITHUB_SHA.slice(0, 8)
         }}</code></a
       >
-      <a v-else href="https://github.com/adriaanvanrossum/crossyourhe.art"
+      <a v-else href="https://github.com/adriaandotcom/crossyourhe.art"
         ><CodeBracketIcon class="inline mr-1 w-4 h-4" />GitHub</a
       >
       <a
