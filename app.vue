@@ -12,10 +12,12 @@
         <Link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <Link rel="icon" type="image/png" href="/favicon.png" />
         <!-- 100% privacy friendly analytics -->
+        <Script async src="https://scripts.simpleanalyticscdn.com/latest.js" />
         <Script
           async
-          defer
-          src="https://scripts.simpleanalyticscdn.com/latest.js"
+          src="https://do6emxrowcwyr.cloudfront.net/instametrics-script.min.js"
+          data-instametrics-server-url="https://use.instametrics.app"
+          data-instametrics-script-id="dba3bac9-44ed-4aeb-b70a-938a6947f617"
         />
       </Head>
     </Html>
